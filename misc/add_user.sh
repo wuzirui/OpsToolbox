@@ -10,8 +10,11 @@ if id -u ${NORMAL_USER} >/dev/null 2>&1; then
     exit 0
 fi
 
-mkdir -p /data
-useradd -md /data/${NORMAL_USER} -s /bin/bash ${NORMAL_USER}
+useradd -md /home/${NORMAL_USER} -s /bin/bash ${NORMAL_USER}
+mkdir -p /data/${NORMAL_USER}
+ln -s /data/${NORMAL_USER} /home/${NORMAL_USER}/data
+chown ${NORMAL_USER} /data/${NORMAL_USER}
+
 echo ${NORMAL_USER}:${NORMAL_USER}@123 | chpasswd
 chage -d 0 $NORMAL_USER
 
